@@ -30,7 +30,7 @@ export default function Login() {
         try {
             if (isLogin) {
                 // LOGIN
-                const response = await api.post("/auth/login", {
+                const response = await api.post("/login", {
                     email: formData.email,
                     password: formData.password,
                 });
@@ -41,7 +41,7 @@ export default function Login() {
                 navigate("/home");
             } else {
                 // REGISTER
-                await api.post("/auth/register", formData);
+                await api.post("/register", formData);
                 setMessage("✅ Registration successful! You can now log in.");
                 setIsLogin(true);
             }

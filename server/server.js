@@ -8,13 +8,15 @@ import attendanceRoutes from "./routes/attendanceRoutes.js";
 dotenv.config();
 const app = express();
 
+// ----------- FIXED CORS FOR NETLIFY + RENDER -----------
 app.use(cors({
-  origin: ["http://localhost:3000", "https://luxury-tanuki-acc31f.netlify.app"],
+  origin: "*",
   methods: "GET,POST,PUT,DELETE,OPTIONS",
-  allowedHeaders: "Content-Type, Authorization",
+  allowedHeaders: "Content-Type,Authorization",
 }));
 
 app.use(express.json());
+
 connectDB();
 
 app.use("/api/auth", authRoutes);
