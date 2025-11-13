@@ -17,20 +17,43 @@ L.Icon.Default.mergeOptions({
 export default function Home() {
   const navigate = useNavigate();
 
+  const [fingerprintAvailable, setFingerprintAvailable] = useState(false);
+  const [authResult, setAuthResult] = useState("");
+  const [locationResult, setLocationResult] = useState("");
+  const [finalStatus, setFinalStatus] = useState("");
+  const [userLocation, setUserLocation] = useState(null);
+  const [attendanceRecords, setAttendanceRecords] = useState([]);
+
   useEffect(() => {
+    // -------- CHECK FINGERPRINT SUPPORT -------- //
+    async function checkFingerprintSupport() {
+      try {
+        if (
+          window.PublicKeyCredential &&
+          PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable
+        ) {
+          const available =
+            await PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable();
+          console.log("Fingerprint support:", available);
+          setFingerprintAvailable(available);
+        } else {
+          console.log("Fingerprint support: false");
+          setFingerprintAvailable(false);
+        }
+      } catch (err) {
+        console.log("Fingerprint check error:", err);
+        setFingerprintAvailable(false);
+      }
+    }
+
+    checkFingerprintSupport();
+
+    // -------- REDIRECT IF NOT LOGGED IN -------- //
     const token = localStorage.getItem("token");
     if (!token) navigate("/login");
   }, [navigate]);
 
-  const [authResult, setAuthResult] = useState("");
-  const [locationResult, setLocationResult] = useState("");
-  const [finalStatus, setFinalStatus] = useState("");
-
-  // new states
-  const [userLocation, setUserLocation] = useState(null); // [lat, lng]
-  const [attendanceRecords, setAttendanceRecords] = useState([]);
-
-  // --- Fingerprint authentication ---
+  // -------- FINGERPRINT AUTH -------- //
   async function handleFingerprintAuth() {
     try {
       const publicKey = {
@@ -45,7 +68,7 @@ export default function Home() {
     }
   }
 
-  // --- GPS location check ---
+  // -------- LOCATION CHECK -------- //
   function checkLocation() {
     if (!navigator.geolocation) {
       setLocationResult("❌ Geolocation not supported on this device.");
@@ -55,13 +78,14 @@ export default function Home() {
     navigator.geolocation.getCurrentPosition(
       (pos) => {
         const { latitude, longitude } = pos.coords;
+
         const campusLat = 17.5388;
         const campusLng = 78.3854;
+
         const distance = Math.sqrt(
           (latitude - campusLat) ** 2 + (longitude - campusLng) ** 2
         );
 
-        // store user location for map
         setUserLocation([latitude, longitude]);
 
         if (distance < 0.01) {
@@ -74,7 +98,7 @@ export default function Home() {
     );
   }
 
-  // --- Mark Attendance + Save to MongoDB ---
+  // -------- MARK ATTENDANCE -------- //
   async function markAttendance() {
     if (authResult.includes("✅") && locationResult.includes("✅")) {
       const now = new Date();
@@ -88,11 +112,12 @@ export default function Home() {
       setAttendanceRecords((prev) => [newRecord, ...prev]);
       setFinalStatus("🎉 Attendance marked successfully!");
 
-      // Save attendance record to backend
+      // Save to MongoDB
       try {
         const token = localStorage.getItem("token");
         const user = JSON.parse(localStorage.getItem("user"));
-        await fetch("http://localhost:5000/api/attendance/mark", {
+
+        await fetch("https://geo-verified-attendance.onrender.com/api/attendance/mark", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -101,8 +126,8 @@ export default function Home() {
           body: JSON.stringify({
             name: user.name,
             rollNo: user.rollNo,
-            date: now.toLocaleDateString(),
-            time: now.toLocaleTimeString(),
+            date: newRecord.date,
+            time: newRecord.time,
             status: "Present",
             location: "VNR Campus",
           }),
@@ -123,13 +148,19 @@ export default function Home() {
         {/* Left: Biometric */}
         <div className="verification-card">
           <h3>Biometric Attendance</h3>
-          <button className="btn-verify" onClick={handleFingerprintAuth}>
-            Verify Fingerprint / Face
-          </button>
+
+          {fingerprintAvailable ? (
+            <button className="btn-verify" onClick={handleFingerprintAuth}>
+              Verify Fingerprint / Face
+            </button>
+          ) : (
+            <p>⚠️ Biometric authentication not supported on this device.</p>
+          )}
+
           <p className="result-text">{authResult}</p>
         </div>
 
-        {/* Right: Location */}
+        {/* Right: GPS */}
         <div className="verification-card">
           <h3>Location Verification</h3>
           <button className="btn-verify" onClick={checkLocation}>
@@ -137,7 +168,7 @@ export default function Home() {
           </button>
           <p className="result-text">{locationResult}</p>
 
-          {/* Map Container (shows only after getting location) */}
+          {/* Map */}
           {userLocation && (
             <div
               style={{
@@ -169,7 +200,7 @@ export default function Home() {
       </button>
       <p className="final-status">{finalStatus}</p>
 
-      {/* Attendance Logs */}
+      {/* Attendance Table */}
       <div className="attendance-logs">
         <h3>Attendance Records</h3>
         <table className="table table-dark table-striped mt-3">
