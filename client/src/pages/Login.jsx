@@ -41,7 +41,7 @@ export default function Login() {
                 navigate("/home");
             } else {
                 // REGISTER
-                const res = await api.post("/auth/register", formData);
+                await api.post("/auth/register", formData);
                 setMessage("✅ Registration successful! You can now log in.");
                 setIsLogin(true);
             }
