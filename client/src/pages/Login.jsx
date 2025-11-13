@@ -30,12 +30,13 @@ export default function Login() {
         try {
             if (isLogin) {
                 // LOGIN
-                const res = await api.post("/auth/login", {
+                const response = await api.post("/auth/login", {
                     email: formData.email,
                     password: formData.password,
                 });
-                localStorage.setItem("token", res.data.token);
-                localStorage.setItem("user", JSON.stringify(res.data.user));
+                localStorage.setItem("token", response.data.token);
+                localStorage.setItem("user", JSON.stringify(response.data.user));
+
                 setMessage("✅ Login successful!");
                 navigate("/home");
             } else {
