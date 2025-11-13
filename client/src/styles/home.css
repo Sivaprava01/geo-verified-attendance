@@ -1,0 +1,139 @@
+/* ---------- PAGE BACKGROUND ---------- */
+.home-page {
+  min-height: 100vh;
+  width: 100%;
+  background: linear-gradient(135deg, #001233, #03045e, #000814);
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: #ffffff;
+  font-family: "Poppins", sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 50px 20px;
+}
+
+/* ---------- HEADINGS ---------- */
+.page-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #90e0ef;
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+/* ---------- CONTAINER ---------- */
+.verification-container {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  gap: 40px;
+  flex-wrap: wrap;
+  max-width: 1000px;
+  margin-bottom: 40px;
+}
+
+/* ---------- CARDS ---------- */
+.verification-card {
+  flex: 1 1 400px;
+  background-color: rgba(11, 19, 43, 0.9);
+  border: 1px solid #00b4d8;
+  border-radius: 16px;
+  padding: 30px;
+  box-shadow: 0 0 20px rgba(0, 180, 216, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.verification-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 25px rgba(0, 180, 216, 0.4);
+}
+
+.verification-card h3 {
+  color: #90e0ef;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+/* ---------- BUTTONS ---------- */
+.btn-verify {
+  background: linear-gradient(90deg, #0096c7, #00b4d8);
+  border: none;
+  color: #fff;
+  font-weight: 600;
+  border-radius: 8px;
+  padding: 12px 20px;
+  margin-top: 15px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.btn-verify:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 15px rgba(0, 180, 216, 0.6);
+}
+
+.btn-final {
+  background: #0077b6;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 12px 30px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.btn-final:hover {
+  background: #0096c7;
+  box-shadow: 0 0 15px rgba(0, 180, 216, 0.4);
+}
+
+/* ---------- TEXT ---------- */
+.result-text {
+  color: #adb5bd;
+  margin-top: 10px;
+  font-weight: 500;
+}
+
+.final-status {
+  font-weight: 600;
+  margin-top: 20px;
+  color: #90e0ef;
+}
+
+/* ---------- ATTENDANCE LOGS ---------- */
+.attendance-logs {
+  background-color: rgba(11, 19, 43, 0.9);
+  border: 1px solid #00b4d8;
+  border-radius: 16px;
+  padding: 30px;
+  margin-top: 50px;
+  box-shadow: 0 0 20px rgba(0, 180, 216, 0.3);
+  width: 90%;
+  max-width: 900px;
+}
+
+.attendance-logs h3 {
+  color: #90e0ef;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.attendance-logs table {
+  width: 100%;
+  color: #fff;
+  border-collapse: collapse;
+  border-radius: 8px;
+}
+
+.attendance-logs th,
+.attendance-logs td {
+  padding: 10px;
+  border-bottom: 1px solid rgba(144, 224, 239, 0.2);
+}
+
+.attendance-logs tr:hover {
+  background-color: rgba(0, 180, 216, 0.15);
+}

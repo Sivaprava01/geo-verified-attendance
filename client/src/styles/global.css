@@ -1,0 +1,39 @@
+/* ---------- GLOBAL STYLES ---------- */
+
+@import "leaflet/dist/leaflet.css";
+
+
+body {
+  margin: 0;
+  background: linear-gradient(180deg, #03045e 0%, #001233 100%);
+  color: #dbeafe;
+  font-family: "Poppins", sans-serif;
+  overflow-x: hidden;
+}
+
+a {
+  text-decoration: none;
+}
+
+/* ---------- NAVBAR ---------- */
+.custom-navbar {
+  background-color: #001845;
+  border-bottom: 1px solid #00b4d8;
+}
+
+.nav-link {
+  color: #adb5bd !important;
+  margin-left: 15px;
+  transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+  color: #00b4d8 !important;
+}
+
+.active-link {
+  background-color: #023e8a;
+  color: #caf0f8 !important;
+  border-radius: 8px;
+  padding: 6px 12px;
+}

@@ -1,0 +1,226 @@
+/* ============================================================
+   LOGIN PAGE – Geo-Verified Biometric Attendance System
+   Author: Siva Sai SN
+   Style: Modern Dark Neon UI
+============================================================ */
+
+/* ---------- PAGE LAYOUT ---------- */
+.login-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: radial-gradient(circle at top left, #001845, #000814 70%);
+  font-family: "Poppins", sans-serif;
+  color: #dbeafe;
+  overflow: hidden;
+}
+
+/* ---------- CARD ---------- */
+.login-card {
+  background: rgba(11, 19, 43, 0.9);
+  border: 1px solid #00b4d8;
+  border-radius: 16px;
+  width: 400px;
+  padding: 35px;
+  box-shadow: 0 0 30px rgba(0, 180, 216, 0.2);
+  backdrop-filter: blur(6px);
+  animation: cardFadeIn 1s ease;
+}
+
+@keyframes cardFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ---------- TITLE ---------- */
+.login-card h3 {
+  color: #90e0ef;
+  font-weight: 600;
+  text-align: center;
+  letter-spacing: 0.5px;
+}
+
+/* ---------- TABS ---------- */
+.tab-container {
+  display: flex;
+  justify-content: space-between;
+  background-color: #1c2541;
+  border-radius: 10px;
+  margin: 25px 0 15px;
+  overflow: hidden;
+  border: 1px solid rgba(144, 224, 239, 0.2);
+}
+
+.tab-btn {
+  flex: 1;
+  background: none;
+  border: none;
+  color: #adb5bd;
+  padding: 10px 0;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.tab-btn.active {
+  background: linear-gradient(90deg, #0096c7, #00b4d8);
+  color: #fff;
+  font-weight: 600;
+  box-shadow: 0 0 10px rgba(0, 180, 216, 0.5);
+}
+
+/* ---------- FORM ---------- */
+.form-group label {
+  color: #90e0ef;
+  font-weight: 500;
+}
+
+.form-control {
+  background-color: #1c2541;
+  border: 1px solid #00b4d8;
+  color: #fff;
+  border-radius: 8px;
+  padding: 10px;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: #48cae4;
+  box-shadow: 0 0 8px rgba(0, 180, 216, 0.4);
+}
+
+.form-control::placeholder {
+  color: #adb5bd;
+}
+
+/* ---------- BUTTON ---------- */
+.btn-info {
+  background: linear-gradient(90deg, #0096c7, #00b4d8);
+  border: none;
+  border-radius: 8px;
+  padding: 10px;
+  font-weight: 600;
+  color: #fff;
+  letter-spacing: 0.4px;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 10px rgba(0, 180, 216, 0.3);
+}
+
+.btn-info:hover {
+  background: linear-gradient(90deg, #00b4d8, #48cae4);
+  box-shadow: 0 0 18px rgba(0, 180, 216, 0.5);
+  transform: translateY(-2px);
+}
+
+/* ---------- FOOTNOTE ---------- */
+.login-card p {
+  font-size: 0.8rem;
+  color: #adb5bd;
+}
+
+/* ---------- BIOMETRIC MODAL ---------- */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 8, 20, 0.95);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.modal-content {
+  background: #0b132b;
+  border: 1px solid #00b4d8;
+  border-radius: 16px;
+  padding: 40px 50px;
+  box-shadow: 0 0 30px rgba(0, 180, 216, 0.4);
+  color: #90e0ef;
+  text-align: center;
+  animation: slideUp 0.4s ease;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* ---------- FINGERPRINT ---------- */
+.fingerprint-animation {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  margin: 0 auto 20px;
+  background: radial-gradient(circle, #00b4d8 0%, #001845 100%);
+  box-shadow: 0 0 25px rgba(0, 180, 216, 0.7);
+  animation: pulse 1.5s infinite ease-in-out;
+  position: relative;
+}
+
+.fingerprint-animation::after {
+  content: "";
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  right: 8px;
+  bottom: 8px;
+  border: 2px solid rgba(0, 180, 216, 0.8);
+  border-radius: 50%;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 15px rgba(0, 180, 216, 0.6);
+  }
+  50% {
+    transform: scale(1.1);
+    box-shadow: 0 0 25px rgba(0, 180, 216, 1);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 15px rgba(0, 180, 216, 0.6);
+  }
+}
+
+/* ---------- SCROLL FIX ---------- */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #00b4d8;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #0096c7;
+}
