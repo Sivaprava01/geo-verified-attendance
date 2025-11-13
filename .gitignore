@@ -1,0 +1,13 @@
+# Ignore node modules (frontend + backend)
+client/node_modules/
+server/node_modules/
+
+# React build folder
+client/build/
+
+# Environment variables
+.env
+server/.env
+
+# Misc OS files
+.DS_Store
