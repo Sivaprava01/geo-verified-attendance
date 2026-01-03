@@ -52,54 +52,66 @@ If either check fails, attendance is **rejected**.
 ## 🛠️ Tech Stack
 
 ### Frontend
-- HTML
-- CSS
-- JavaScript
+- HTML  
+- CSS  
+- JavaScript  
 
 ### Backend
-- Node.js
-- Express.js
+- Node.js  
+- Express.js  
 
 ### Database
-- MongoDB
+- MongoDB  
 
 ### APIs & Tools
-- Geolocation API
-- Fingerprint Authentication
-- REST APIs
+- Geolocation API  
+- Fingerprint Authentication (WebAuthn)  
+- REST APIs  
 
 ---
 
 ## 🔄 How It Works
 
-1. Student logs in
+1. Student logs in  
 2. System captures:
-   - 📍 Current GPS coordinates
-   - 🧬 Fingerprint authentication
+   - 📍 Current GPS coordinates  
+   - 🧬 Fingerprint authentication  
 3. Backend validates:
-   - Location is within campus boundary
-   - Fingerprint belongs to the student
+   - Location is within campus boundary  
+   - Fingerprint belongs to the student  
 4. Attendance is marked **only if both validations succeed**
 
 ---
 
 ## 📂 Project Structure
 
-geo-verified-attendance/
-├── client/            # Frontend files
-│   ├── index.html
-│   ├── styles.css
-│   └── script.js
-│
-├── server/            # Backend files
-│   ├── routes/
-│   ├── controllers/
-│   ├── models/
-│   └── server.js
-│
-├── .gitignore
-├── package.json
-└── README.md
+geo-verified-attendance/  
+├── client/  
+│   ├── index.html  
+│   ├── styles.css  
+│   └── script.js  
+│  
+├── server/  
+│   ├── routes/  
+│   ├── controllers/  
+│   ├── models/  
+│   └── server.js  
+│  
+├── .gitignore  
+├── package.json  
+└── README.md  
+
+---
+
+## 🧪 Fingerprint Verification Steps
+
+### Step 1: Open the application
+- Open the live demo link in **Google Chrome or Microsoft Edge**
+- Use a device that supports **fingerprint authentication**
+
+### Step 2: Open Browser Console
+- Right-click on the page → **Inspect**
+- Navigate to the **Console** tab
 
 ---
 
@@ -142,6 +154,54 @@ Open the following file in your browser:
 - Corporate training programs  
 - Secure examination systems  
 - Workplace attendance tracking  
+
+---
+
+## 🔐 Fingerprint Authentication (WebAuthn – Demo Mode)
+
+This project uses the **Web Authentication API (WebAuthn)** for fingerprint-based verification.
+
+Due to browser security restrictions, fingerprint authentication **cannot be triggered directly from the UI** in this demo.  
+To demonstrate biometric verification, the WebAuthn logic must be executed manually via the browser console.
+
+---
+
+## 🌐 Live Demo
+
+https://geo-verified-attendance.netlify.app/
+
+---
+
+## 🧪 Fingerprint Verification Steps
+
+### Check Fingerprint Availability
+
+    PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable()
+      .then(res => console.log("Fingerprint available:", res))
+      .catch(err => console.error(err));
+
+---
+
+### Trigger Fingerprint Authentication
+
+    navigator.credentials.create({
+      publicKey: {
+        challenge: new Uint8Array([1,2,3,4,5,6,7,8]),
+        rp: { name: "Geo Verified Attendance" },
+        user: {
+          id: new Uint8Array([1]),
+          name: "testuser@example.com",
+          displayName: "Test User"
+        },
+        pubKeyCredParams: [{ type: "public-key", alg: -7 }],
+        authenticatorSelection: {
+          authenticatorAttachment: "platform",
+          userVerification: "required"
+        }
+      }
+    })
+    .then(res => console.log("Fingerprint success:", res))
+    .catch(err => console.error("Fingerprint error:", err));
 
 ---
 
